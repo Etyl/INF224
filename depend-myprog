@@ -1,0 +1,5 @@
+-Wall
+-g
+-MM
+./class/Multimedia.cpp
+main.cpp
