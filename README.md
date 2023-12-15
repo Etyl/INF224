@@ -49,4 +49,8 @@ Le groupe ne doit pas détruire les objets quand il est détruit car un objet pe
 
 Il faut que la liste d'objets soit une liste de pointeurs d'objets car les objets sont de taille variable et il faut donc les allouer dynamiquement. En Java, les objets sont alloués dynamiquement par défaut.
 
+# 9
 
+Par contre, ce ne sera pas le cas si on crée un objet directement avec new (il n'appartiendra à aucune table). Comment peut-on l'interdire, afin que seule la classe servant à manipuler les objets puisse en créer de nouveaux ?
+
+Il faut mettre les constructeurs en private ou protected. Il faut aussi mettre la classe Manager en friend de les classes Photo, Video et Film.
