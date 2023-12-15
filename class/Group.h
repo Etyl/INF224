@@ -9,11 +9,13 @@ typedef std::shared_ptr<Multimedia> MultimediaPtr;
 class Group 
 {
 private:
-    std::list<MultimediaPtr> multimediaList;
+    std::list<MultimediaPtr> multimediaList{};
+    std::string name{};
 
 public:
     // Constructor
-    Group() {};
+    Group(std::string name) : name(name) {};
+    Group(){};
 
     // Destructor
     ~Group() {};
@@ -33,6 +35,10 @@ public:
         for (auto multimedia : multimediaList) {
             multimedia->display(os);
         }
+    }
+
+    std::string getName() const {
+        return name;
     }
 
 };
