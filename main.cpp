@@ -17,10 +17,7 @@ int main(int argc, const char* argv[])
 {
     // list of multimedia objects
     Group multimediaGroup{};
-    multimediaGroup.add(MultimediaPtr(new Video("Video 1", "video1.mp4", 10)));
-    multimediaGroup.add(MultimediaPtr(new Video("Video 2", "video2.mp4", 20)));
-    multimediaGroup.add(MultimediaPtr(new Photo("Photo 1", "photo1.jpg", 100, 200)));
-    multimediaGroup.add(MultimediaPtr(new Photo("Photo 2", "photo2.jpg", 200, 400)));
+    
 
     // display all multimedia objects
     multimediaGroup.display(cout);
