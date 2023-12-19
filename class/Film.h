@@ -18,7 +18,9 @@ private:
 public: 
     // Destructor
     ~Film(){
-        delete[] chapterLengths;
+        if (chapterLengths != nullptr) {
+            delete[] chapterLengths;
+        }
     };
 
     // Getter and setter for chapterLengths
