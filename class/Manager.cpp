@@ -60,3 +60,18 @@ void Manager::play(std::string name) {
         multimediaMap[name]->play();
     }
 }
+
+// remove multimedia, else display error message
+void Manager::remove(std::string name) {
+    auto search = multimediaMap.find(name);
+    if (search == multimediaMap.end()) {
+        std::cout << "Error: could not find Multimedia" << std::endl;
+    }
+    else {
+        // remove multimedia from group
+        for (auto group : groupMap) {
+            group.second->remove(multimediaMap[name]);
+        }
+        multimediaMap.erase(name);
+    }
+}

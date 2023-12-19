@@ -31,12 +31,6 @@ public:
         multimediaMap[multimedia->getName()] = multimedia;
     }
 
-    // Remove a multimedia object from the map
-    void remove(std::string name)
-    {
-        multimediaMap.erase(name);
-    }
-
     // Create a photo
     std::shared_ptr<Photo> createPhoto(std::string name, std::string fileName, int width, int height);
 
@@ -56,5 +50,7 @@ public:
     // Play a multimedia object
     void play(std::string name);
 
+    //
+    void remove(std::string name);
 
 };

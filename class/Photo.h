@@ -39,7 +39,7 @@ public:
     // Play method
     void play() const override
     {
-        std::string command = "mpv " + getFileName() + " &";
+        std::string command = "imagej " + getFileName() + " &";
         system(command.c_str());
     }
 };
