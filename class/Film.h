@@ -14,26 +14,13 @@ private:
     friend class Manager;
 
 public: 
-    ~Film(){};
+    // Destructor
+    ~Film(){
+        delete[] chapterLengths;
+    };
 
     // Getter and setter for chapterLengths
-    int *getChapterLengths() const
-    {
-        int *newChapterLengths = new int[chapterLengthsSize];
-        for (int i = 0; i < chapterLengthsSize; i++)
-        {
-            newChapterLengths[i] = chapterLengths[i];
-        }
-        return newChapterLengths;
-    }
-    void setChapterLengths(int *newChapterLengths, int newChapterLengthsSize)
-    {
-        chapterLengthsSize = newChapterLengthsSize;
-        delete[] chapterLengths;
-        chapterLengths = new int[newChapterLengthsSize];
-        for (int i = 0; i < newChapterLengthsSize; i++)
-        {
-            chapterLengths[i] = newChapterLengths[i];
-        }
-    }
+    int *getChapterLengths() const;
+    void setChapterLengths(int *newChapterLengths, int newChapterLengthsSize);
+
 };
