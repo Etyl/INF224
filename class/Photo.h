@@ -1,3 +1,6 @@
+#ifndef PHOTO_H
+#define PHOTO_H
+
 #include "Multimedia.h"
 
 class Photo : public Multimedia
@@ -43,3 +46,5 @@ public:
         system(command.c_str());
     }
 };
+
+#endif // PHOTO_H

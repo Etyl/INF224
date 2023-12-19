@@ -17,6 +17,8 @@ std::shared_ptr<Video> Manager::createVideo(std::string name, std::string fileNa
 std::shared_ptr<Film> Manager::createFilm(std::string name, std::string fileName, int duration, int *chapters, int chapterCount)
 {
     std::shared_ptr<Film> film = std::shared_ptr<Film>(new Film(name, fileName, duration, chapters, chapterCount));
+    chapters[0] = 6;
+    film->setChapterLengths(chapters, chapterCount);
     multimediaMap[name] = film;
     return film;
 }

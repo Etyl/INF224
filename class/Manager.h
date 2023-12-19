@@ -1,3 +1,6 @@
+#ifndef MANAGER_H
+#define MANAGER_H
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -50,7 +53,9 @@ public:
     // Play a multimedia object
     void play(std::string name);
 
-    //
+    // Remove a multimedia object
     void remove(std::string name);
 
 };
+
+#endif // MANAGER_H
