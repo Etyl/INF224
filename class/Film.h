@@ -9,8 +9,7 @@ private:
     int *chapterLengths = nullptr;
     int chapterLengthsSize{};
 
-    Film(const std::string &name, const std::string &path, int length, int *chapterLengths, int chapterLengthsSize)
-        : Video(name, path, length), chapterLengths(chapterLengths), chapterLengthsSize(chapterLengthsSize){};
+    Film(const std::string &name, const std::string &path, int length, int *chapterLengths, int chapterLengthsSize);
 
     Film(){};
 

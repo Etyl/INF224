@@ -1,5 +1,16 @@
 #include "Film.h"
 
+// Constructor
+Film::Film(const std::string &name, const std::string &path, int length, int *chapterLengths, int chapterLengthsSize)
+    : Video(name, path, length), chapterLengthsSize(chapterLengthsSize)
+{
+    this->chapterLengths = new int[chapterLengthsSize];
+    for (int i = 0; i < chapterLengthsSize; i++)
+    {
+        this->chapterLengths[i] = chapterLengths[i];
+    }
+};
+
 // Getter and setter for chapterLengths
 int *Film::getChapterLengths() const
 {
@@ -13,7 +24,8 @@ int *Film::getChapterLengths() const
 void Film::setChapterLengths(int *newChapterLengths, int newChapterLengthsSize)
 {
     chapterLengthsSize = newChapterLengthsSize;
-    if (chapterLengths != nullptr) {
+    if (chapterLengths != nullptr)
+    {
         delete[] chapterLengths;
         chapterLengths = nullptr;
     }
