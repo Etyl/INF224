@@ -67,8 +67,8 @@ int main(int argc, const char *argv[])
         {
             case Command::DISPLAY :
             {
-                response = "Multimedia found : ( ";
                 if (getline(iss, parsed, ' ')) {
+                    response = "Multimedia found : ( ";
                     manager->findMultimedia(parsed, res_stream);
                     response += res_stream.str();
                     
@@ -82,12 +82,17 @@ int main(int argc, const char *argv[])
                 break;
             }
             case Command::PLAY :
-            {
+            {   
+
+                if (getline(iss, parsed, ' ')) {
+                    response = "Playing multimedia " + parsed;
+                    manager->play(parsed);
+                }
                 break;
             }
             case Command::STOP :
-            {
-                break;
+            {   
+                return false;
             }
             case Command::NOT_FOUND :
             {
