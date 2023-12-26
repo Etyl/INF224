@@ -1,5 +1,7 @@
 #include <iostream>
 #include <sstream>
+#include <algorithm>
+#include <regex>
 using namespace std;
 
 #include "./class/Video.h"
@@ -16,21 +18,40 @@ const int PORT = 3489;
 
 int main(int argc, const char *argv[])
 {
-    // cree le TCPServer
+    
+    Manager * manager = new Manager();
+    manager->createPhoto("photo1", "photo1.jpg", 100, 100);
+    manager->createPhoto("photo2", "photo2.jpg", 200, 200);
+    manager->createVideo("video1", "video1.mp4", 10);
+    manager->createVideo("video2", "video2.mp4", 20);
+
+    // create the TCPServer
     auto *server = new TCPServer([&](std::string const &request, std::string &response)
     {
         // the request sent by the client to the server
-        std::cout << "request: " << request << std::endl;
+        // std::cout << "request: " << request << std::endl;
+
+        response = "";
+        stringstream res_stream = stringstream();
+
         std::istringstream iss(request); // Create an istringstream to parse the request string
         std::string parsed = "";
+        
         if (getline(iss, parsed, ' ') && parsed == "display") {
+            response = "Multimedia found : ( ";
             if (getline(iss, parsed, ' ')) {
-                std::cout << "Displaying :" << parsed << std::endl;
+                manager->findMultimedia(parsed, res_stream);
+                response += res_stream.str();
+                
+                std::regex newlines_re("\n+");
+                response = std::regex_replace(response, newlines_re, " | ");
+                response = response.substr(0, response.size()-2);
+
+                response += ")";
+
             }
         }
-
-        // the response that the server sends back to the client
-        response = "RECEIVED: " + request;
+        
 
         // return false would close the connecytion with the client
         return true; 

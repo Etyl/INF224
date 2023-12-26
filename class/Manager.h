@@ -46,9 +46,9 @@ public:
     // Create a group
     std::shared_ptr<Group> createGroup(std::string name);
 
-    void findMultimedia(std::string name);
+    void findMultimedia(std::string name, std::ostream &stream);
 
-    void findGroup(std::string name);
+    void findGroup(std::string name, std::ostream &stream);
 
     // Play a multimedia object
     void play(std::string name);

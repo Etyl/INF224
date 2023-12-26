@@ -10,6 +10,7 @@
 #include <string>
 #include <functional>
 #include "ccsocket.h"
+#include "../class/Manager.h"
 
 class TCPConnection;
 class TCPLock;

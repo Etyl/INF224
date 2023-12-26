@@ -31,30 +31,30 @@ std::shared_ptr<Group> Manager::createGroup(std::string name)
 }
 
 // display multimedia, else display error message
-void Manager::findMultimedia(std::string name) {
+void Manager::findMultimedia(std::string name, std::ostream &stream) {
     std::map<std::string,MultimediaPtr>::iterator searchList = multimediaMap.find(name);
     if (searchList == multimediaMap.end()) {
-        std::cout << "Error: could not find Multimedia" << std::endl;
+        stream << "Error: could not find Multimedia" << std::endl;
     }
     else {
-        multimediaMap[name]->display(std::cout);
+        multimediaMap[name]->display(stream);
     }
 }
 
 // display a group
-void Manager::findGroup(std::string name) {
-    std::map<std::string,GroupPtr>::iterator searchList = groupMap.find(name);
+void Manager::findGroup(std::string name, std::ostream &stream) {
+    auto searchList = groupMap.find(name);
     if (searchList == groupMap.end()) {
-        std::cout << "Error: could not find Group" << std::endl;
+        stream << "Error: could not find Group" << std::endl;
     }
     else {
-        groupMap[name]->display(std::cout);
+        groupMap[name]->display(stream);
     }
 }
 
 // play multimedia, else display error message
 void Manager::play(std::string name) {
-    std::map<std::string,MultimediaPtr>::iterator searchList = multimediaMap.find(name);
+    auto searchList = multimediaMap.find(name);
     if (searchList == multimediaMap.end()) {
         std::cout << "Error: could not find Multimedia" << std::endl;
     }
