@@ -16,6 +16,29 @@ typedef std::shared_ptr<Multimedia> MultimediaPtr;
 
 const int PORT = 3489;
 
+enum class Command
+{
+     DISPLAY,
+     PLAY,
+     STOP,
+     NOT_FOUND
+};
+
+map<string, Command> commands_table = {
+    {"display", Command::DISPLAY},
+    {"play", Command::PLAY},
+    {"stop", Command::STOP},
+};
+
+Command getCommand(string command)
+{
+     if (commands_table.find(command) != commands_table.end())
+     {
+          return commands_table[command];
+     }
+     return Command::NOT_FOUND;
+}
+
 int main(int argc, const char *argv[])
 {
     
@@ -28,30 +51,50 @@ int main(int argc, const char *argv[])
     // create the TCPServer
     auto *server = new TCPServer([&](std::string const &request, std::string &response)
     {
-        // the request sent by the client to the server
-        // std::cout << "request: " << request << std::endl;
-
         response = "";
         stringstream res_stream = stringstream();
 
         std::istringstream iss(request); // Create an istringstream to parse the request string
         std::string parsed = "";
         
-        if (getline(iss, parsed, ' ') && parsed == "display") {
-            response = "Multimedia found : ( ";
-            if (getline(iss, parsed, ' ')) {
-                manager->findMultimedia(parsed, res_stream);
-                response += res_stream.str();
-                
-                std::regex newlines_re("\n+");
-                response = std::regex_replace(response, newlines_re, " | ");
-                response = response.substr(0, response.size()-2);
-
-                response += ")";
-
-            }
+        if (!getline(iss, parsed, ' ')) {
+            response = "Error: no input";
+            return true;
         }
-        
+
+        const std::string command = parsed;
+        switch (getCommand(command))
+        {
+            case Command::DISPLAY :
+            {
+                response = "Multimedia found : ( ";
+                if (getline(iss, parsed, ' ')) {
+                    manager->findMultimedia(parsed, res_stream);
+                    response += res_stream.str();
+                    
+                    std::regex newlines_re("\n+");
+                    response = std::regex_replace(response, newlines_re, " | ");
+                    response = response.substr(0, response.size()-2);
+
+                    response += ")";
+
+                }
+                break;
+            }
+            case Command::PLAY :
+            {
+                break;
+            }
+            case Command::STOP :
+            {
+                break;
+            }
+            case Command::NOT_FOUND :
+            {
+                response = "Error: invalid command";
+                break;
+            }
+        }  
 
         // return false would close the connecytion with the client
         return true; 
