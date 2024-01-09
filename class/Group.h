@@ -7,7 +7,6 @@
 #include "Multimedia.h"
 
 using MultimediaPtr = std::shared_ptr<Multimedia>;
-typedef std::shared_ptr<Multimedia> MultimediaPtr;
 
 class Group 
 {

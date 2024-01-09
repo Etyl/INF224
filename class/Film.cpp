@@ -11,24 +11,18 @@ Film::Film(const std::string &name, const std::string &path, int length, int *ch
     }
 };
 
-// Getter and setter for chapterLengths
-int *Film::getChapterLengths() const
-{
-    int *newChapterLengths = new int[chapterLengthsSize];
-    for (int i = 0; i < chapterLengthsSize; i++)
-    {
-        newChapterLengths[i] = chapterLengths[i];
-    }
-    return newChapterLengths;
-}
-void Film::setChapterLengths(int *newChapterLengths, int newChapterLengthsSize)
-{
+
+void Film::setChapterLengths(int const *newChapterLengths, int newChapterLengthsSize)
+{   
+    if (newChapterLengthsSize < 0) return;
+    
+    delete[] chapterLengths;
+    chapterLengths = nullptr;
+    chapterLengthsSize = 0;
+
+    if (newChapterLengthsSize == 0) return;
+
     chapterLengthsSize = newChapterLengthsSize;
-    if (chapterLengths != nullptr)
-    {
-        delete[] chapterLengths;
-        chapterLengths = nullptr;
-    }
     chapterLengths = new int[newChapterLengthsSize];
     for (int i = 0; i < newChapterLengthsSize; i++)
     {

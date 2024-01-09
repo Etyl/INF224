@@ -21,11 +21,14 @@ public:
         if (chapterLengths != nullptr) {
             delete[] chapterLengths;
         }
-    };
+    }
 
     // Getter and setter for chapterLengths
-    int *getChapterLengths() const;
-    void setChapterLengths(int *newChapterLengths, int newChapterLengthsSize);
+    int const *getChapterLengths() const {
+        return chapterLengths;
+    }
+
+    void setChapterLengths(int const *newChapterLengths, int newChapterLengthsSize);
 
     // Display method
     void display(std::ostream &os) const override;
