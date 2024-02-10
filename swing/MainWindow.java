@@ -12,6 +12,7 @@ public class MainWindow extends JFrame {
     private JTextArea textArea;
     private TextField searchField;
     private JButton searchButton;
+    private JButton playButton;
     private Client client;
 
     public MainWindow() {
@@ -20,6 +21,7 @@ public class MainWindow extends JFrame {
         // Create the buttons
         searchField = new TextField();
         searchButton = new JButton("Search");
+        playButton = new JButton("Play");
         connectCient();
 
         // Add action listeners to the buttons
@@ -31,6 +33,14 @@ public class MainWindow extends JFrame {
             }
         });
 
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String request = "play " + searchField.getText();
+                textArea.append(client.send(request)+"\n");
+            }
+        });
+
         // Create the main window
         setTitle("Main Window");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,10 +48,6 @@ public class MainWindow extends JFrame {
 
         // Add components to the main window
         add(new JScrollPane(textArea), BorderLayout.CENTER);
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(searchField);
-        buttonPanel.add(searchButton);
-        add(buttonPanel, BorderLayout.SOUTH);
 
         // Create the menu bar
         JMenuBar menuBar = new JMenuBar();
@@ -52,22 +58,14 @@ public class MainWindow extends JFrame {
         menuBar.add(menu);
 
         // Create the menu items
-        JMenuItem menuItem1 = new JMenuItem("Button 1");
-        JMenuItem menuItem2 = new JMenuItem("Button 2");
+        JMenuItem menuItem1 = new JMenuItem("Change host/port");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
 
         // Add action listeners to the menu items
         menuItem1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.append(client.send("display photo1 \n"));
-            }
-        });
-
-        menuItem2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textArea.append("Text from Button 2\n");
+                createDialog();
             }
         });
 
@@ -80,7 +78,6 @@ public class MainWindow extends JFrame {
 
         // Add menu items to the menu
         menu.add(menuItem1);
-        menu.add(menuItem2);
         menu.add(exitMenuItem);
 
         // Create the toolbar
@@ -90,6 +87,7 @@ public class MainWindow extends JFrame {
         // Add buttons to the toolbar
         toolBar.add(searchField);
         toolBar.add(searchButton);
+        toolBar.add(playButton);
 
         // Set the size and make the window visible
         pack();
@@ -105,9 +103,46 @@ public class MainWindow extends JFrame {
             System.err.println("Client: Couldn't connect to to " + client.getHost() + ":" + client.getPort());
             return;
         }
-
         System.out.println("Client connected to " + client.getHost() + ":" + client.getPort());
 
     }
+
+    private void createDialog() {
+        // Create dialog
+        JDialog dialog = new JDialog(this, "Dialog", true);
+        dialog.setLayout(new FlowLayout());
+
+        // Create text field
+        JTextField hostField = new JTextField(20);
+        JTextField portField = new JTextField(6);
+
+        // Create button
+        JButton button = new JButton("Save host");
+        // Add action listener to button
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Perform action when button is clicked
+                String host = hostField.getText();
+                String port = portField.getText();
+                if (host != null && port != null) {
+                    try {
+                        client = new Client(host, Integer.parseInt(port));
+                    } catch (Exception e1) {
+                        textArea.append("Could not connect to " + host + ":" + port);
+                    }
+                }
+                dialog.dispose();
+            }
+        });
+
+        dialog.add(hostField);
+        dialog.add(portField);
+        dialog.add(button);
+
+        // Set dialog size and visibility
+        dialog.setSize(450, 200);
+        dialog.setVisible(true);
+    }
+    
 
 }
