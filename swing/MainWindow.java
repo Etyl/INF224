@@ -5,41 +5,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//import swing.Client;
 
 public class MainWindow extends JFrame {
     private static final long serialVersionUID = 1L;
     private JTextArea textArea;
-    private JButton button1;
-    private JButton button2;
-    private JButton exitButton;
+    private TextField searchField;
+    private JButton searchButton;
+    private Client client;
 
     public MainWindow() {
         // Create the text area
         textArea = new JTextArea();
         // Create the buttons
-        button1 = new JButton("Button 1");
-        button2 = new JButton("Button 2");
-        exitButton = new JButton("Exit");
+        searchField = new TextField();
+        searchButton = new JButton("Search");
+        connectCient();
 
         // Add action listeners to the buttons
-        button1.addActionListener(new ActionListener() {
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.append("Text from Button 1\n");
-            }
-        });
-
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textArea.append("Text from Button 2\n");
-            }
-        });
-
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                String request = "display " + searchField.getText();
+                textArea.append(client.send(request)+"\n");
             }
         });
 
@@ -51,9 +39,8 @@ public class MainWindow extends JFrame {
         // Add components to the main window
         add(new JScrollPane(textArea), BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(button1);
-        buttonPanel.add(button2);
-        buttonPanel.add(exitButton);
+        buttonPanel.add(searchField);
+        buttonPanel.add(searchButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Create the menu bar
@@ -73,7 +60,7 @@ public class MainWindow extends JFrame {
         menuItem1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.append("Text from Button 1\n");
+                textArea.append(client.send("display photo1 \n"));
             }
         });
 
@@ -101,13 +88,26 @@ public class MainWindow extends JFrame {
         add(toolBar, BorderLayout.NORTH);
 
         // Add buttons to the toolbar
-        toolBar.add(button1);
-        toolBar.add(button2);
-        toolBar.add(exitButton);
+        toolBar.add(searchField);
+        toolBar.add(searchButton);
 
         // Set the size and make the window visible
         pack();
         setSize(600, 400);
         setVisible(true);
     }
+
+    private void connectCient() {
+
+        try {
+            client = new Client();
+        } catch (Exception e) {
+            System.err.println("Client: Couldn't connect to to " + client.getHost() + ":" + client.getPort());
+            return;
+        }
+
+        System.out.println("Client connected to " + client.getHost() + ":" + client.getPort());
+
+    }
+
 }
