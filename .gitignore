@@ -8,6 +8,7 @@
 !*/
 
 *.o
+*.class
 
 /.vscode
 ./tcpserver/Makefile-cliserv
