@@ -9,7 +9,9 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
-	// private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 1L;
 	static final String DEFAULT_HOST = "localhost";
 	static final int DEFAULT_PORT = 3489;
 	private String host;
