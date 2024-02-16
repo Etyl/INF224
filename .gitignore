@@ -13,3 +13,4 @@
 
 /.vscode
 ./tcpserver/Makefile-cliserv
+./swing/swing.iml
