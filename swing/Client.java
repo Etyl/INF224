@@ -14,11 +14,11 @@ public class Client {
 	private static final long serialVersionUID = 1L;
 	static final String DEFAULT_HOST = "localhost";
 	static final int DEFAULT_PORT = 3489;
-	private String host;
-	private int port;
-	private Socket sock;
-	private BufferedReader input;
-	private BufferedWriter output;
+	private final String host;
+	private final int port;
+	private final Socket sock;
+	private final BufferedReader input;
+	private final BufferedWriter output;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

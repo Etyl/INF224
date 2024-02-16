@@ -14,7 +14,7 @@ PROG = Main
 #
 # Fichiers sources .java
 #
-SOURCES = Client.java MainWindow.java Main.java
+SOURCES = Client.java MainWindow.java Main.java  
 
 #
 # Compilateur Java
@@ -26,6 +26,7 @@ JC = javac
 #
 JFLAGS = -g
 
+export CLASSPATH = ..
 
 ##########################################
 #
@@ -55,3 +56,5 @@ tar:
 
 .java.class:
 	$(JC) $(JFLAGS) $*.java
+
+

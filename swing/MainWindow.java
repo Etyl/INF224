@@ -5,12 +5,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.Serial;
+
 public class MainWindow extends JFrame {
+    @Serial
     private static final long serialVersionUID = 1L;
-    private JTextArea textArea;
-    private TextField searchField;
-    private JButton searchButton;
-    private JButton playButton;
+    private final JTextArea textArea;
+    private final TextField searchField;
+    private final JButton searchButton;
+    private final JButton playButton;
     private Client client;  
 
     public MainWindow() {
@@ -21,7 +24,7 @@ public class MainWindow extends JFrame {
         searchField = new TextField();
         searchButton = new JButton("Search");
         playButton = new JButton("Play");
-        connectCient();
+        connectClient();
 
         // Add action listeners to the buttons
         searchButton.addActionListener(new ActionListener() {
@@ -94,7 +97,10 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    private void connectCient() {
+    /**
+     * Connects the client to the server.
+     */
+    private void connectClient() {
 
         try {
             client = new Client();
@@ -106,7 +112,11 @@ public class MainWindow extends JFrame {
 
     }
 
+    /**
+     * Creates and displays a dialog for entering host and port information.
+     */
     private void createDialog() {
+    
         // Create dialog
         JDialog dialog = new JDialog(this, "Dialog", true);
         dialog.setLayout(new FlowLayout());
@@ -142,6 +152,4 @@ public class MainWindow extends JFrame {
         dialog.setSize(450, 200);
         dialog.setVisible(true);
     }
-    
-
 }
