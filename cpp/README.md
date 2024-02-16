@@ -1,10 +1,3 @@
-Pour lancer
-
-
-
-
-
-
 # 1 
 
 La fonction play de la classe Multimedia
