@@ -36,7 +36,7 @@ export CLASSPATH = ..
 all: classes
 
 run: all
-	java ${PROG}
+	java swing.${PROG}
 
 classes: $(SOURCES:.java=.class)
 
